@@ -25,5 +25,6 @@ fig, ax = plt.subplots(figsize = (5, 5))
 df.plot.scatter(x=metadata1, y=metadata2, s='fraction_of_cells', c='Mean', cmap='Reds', edgecolors='grey', ax=ax);
 ax.tick_params(axis='x', rotation=90)
 ax.set_title('Dotplot')
+# can remove the grid with: ax.grid(False)
 fig.set_tight_layout(True)
 fig.savefig('dotplot.png', facecolor='white')
