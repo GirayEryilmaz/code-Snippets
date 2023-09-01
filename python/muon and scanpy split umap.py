@@ -1,8 +1,8 @@
 import numpy as np
-import scanpy as sc
+import muon as mu
 from matplotlib import pyplot as plt
 
-def muon_split_umap(mudata, color_by, split_by, ncol = 4, **kwargs):
+def split_umap(mudata, color_by, split_by, ncol = 4, **kwargs):
     """
         This can work on both mudata and anndata objects
     """
@@ -16,12 +16,12 @@ def muon_split_umap(mudata, color_by, split_by, ncol = 4, **kwargs):
     fig, axs = plt.subplots(nrow, ncol, figsize = figsize)
     axs = axs.flatten()
     
-    temp_col = 'TEMP_COL_NAME_123'
+    temp_col_name = 'TEMP_COL_NAME_123'
     for ax, cat in zip(axs, split_cats):
-        mudata.obs[temp_col] = color_col
-        mudata.obs.loc[split_col!=cat, cat] = np.nan
-        mu.pl.embedding(mudata, color = cat, na_color = '#F3F3F3', ax=ax, show=False, title=cat, na_in_legend=False, **kwargs)
-    del mudata.obs[temp_col]
+        mudata.obs[temp_col_name] = color_col
+        mudata.obs.loc[split_col!=cat, temp_col_name] = np.nan
+        mu.pl.embedding(mudata, color = temp_col_name, na_color = '#F3F3F3', ax=ax, show=False, title=cat, na_in_legend=False, **kwargs)
+    del mudata.obs[temp_col_name]
     
     for ax in axs[len(split_cats):]:
         ax.axis('off')
