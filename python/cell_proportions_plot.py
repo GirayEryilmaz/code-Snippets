@@ -36,3 +36,26 @@ for ax in axs:
     ax.legend(loc='center left', bbox_to_anchor=(1, 0.5));
     ax.set_xlabel(None);
 fig.subplots_adjust(wspace=0.5)
+
+
+
+def cel_props_line(adata, x_axis, to_stack, figsize = (5, 5), ax=None, add_total=False):
+    """
+        Good for looking at changes in cell props over timepoints.
+        The codes is basically teh same as cel_props_plot (bar plots)
+    """
+    group = adata.obs[[x_axis, to_stack]].groupby([x_axis, to_stack])
+    df = group.value_counts()
+    percentages = (df/df.groupby(x_axis).sum())
+    percentages = percentages.unstack()
+    if add_total:
+        totals = adata.obs[to_stack].value_counts()
+        totals = totals/totals.sum()
+        percentages.loc['Total', :] = totals
+
+    if ax:
+        percentages.plot.line(ax=ax).legend(bbox_to_anchor=(1.0, 0.5));
+        ax.grid(axis='x')
+    else:
+        percentages.plot.line(figsize=figsize).legend(bbox_to_anchor=(1.0, 0.5));
+        plt.grid(axis='x')
