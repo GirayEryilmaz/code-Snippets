@@ -1,3 +1,3 @@
-# R-Snippets
+# Code-Snippets
 
-This is where I put my semi-frequently used R snippets
+This is where I put my semi-frequently used code snippets
