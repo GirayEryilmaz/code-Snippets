@@ -31,7 +31,7 @@ fig, axs = plt.subplots(1, 2, figsize = (12, 5))
 cel_props_plot(adata, x_axis='Cluster', to_stack='Batch', ax = axs[0], add_total=True)
 cel_props_plot(adata, x_axis='Cluster', to_stack='Person', ax = axs[1], add_total=True)
 axs[0].set_title('Batch')
-axs[0].set_title('Person')
+axs[1].set_title('Person')
 for ax in axs:
     ax.legend(loc='center left', bbox_to_anchor=(1, 0.5));
     ax.set_xlabel(None);
