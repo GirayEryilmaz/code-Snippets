@@ -1,8 +1,13 @@
 def scanpy_violin_plots(adata, feat_list, groupby, ncols=4, **kwargs):
+    ncols = min(ncols, len(feat_list))
     nrows = np.ceil(len(feat_list)/ncols).astype(int)
     save = kwargs.pop('save', False)
     figsize = (ncols*5, nrows*5)
     fig, axs = plt.subplots(ncols=ncols, nrows=nrows, figsize = figsize)
+    if ncols > 1:
+        axs = axs.flatten()
+    else:
+        axs = [axs]
     for i, (feat, ax) in enumerate(zip(feat_list, axs.flatten())):
         sc.pl.violin(adata, feat, groupby=groupby, show=False, ax=ax, **kwargs)
     plt.tight_layout()
