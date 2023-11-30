@@ -17,6 +17,24 @@ def cel_props_plot(adata, x_axis, to_stack, figsize = (5, 5), ax=None, add_total
         percentages.plot.bar(stacked=True, figsize=figsize).legend(bbox_to_anchor=(1.0, 0.5));
         plt.grid(axis='x')
 
+# example:
+fig, ax = plt.subplots(1, 1, figsize = (6, 5))
+cel_props_plot(adata, x_axis='clusters', to_stack='Batch', ax = ax, add_total=True)
+ax.set_xlabel(None);
+ax.legend(loc='center left', bbox_to_anchor=(1, 0.5));
+
+# Example 2
+fig, axs = plt.subplots(1, 2, figsize = (12, 5))
+# axs = axs.flatten()
+cel_props_plot(adata, x_axis='Cluster', to_stack='Batch', ax = axs[0], add_total=True)
+cel_props_plot(adata, x_axis='Cluster', to_stack='Person', ax = axs[1], add_total=True)
+axs[0].set_title('Batch')
+axs[1].set_title('Person')
+for ax in axs:
+    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5));
+    ax.set_xlabel(None);
+fig.subplots_adjust(wspace=0.5)
+
 def longitudinal_cell_prop_plot(adata, cell_type_of_interest, facade = 'Vaccine', group_by = ['person', 'Visit'], annots_col = 'subset_annotations', wspace=0.3, figsize = (25, 3)):
     ncats = len(adata.obs[facade].cat.categories)
     fig, axs = plt.subplots(1, ncats, figsize = figsize)
