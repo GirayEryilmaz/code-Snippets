@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 with plt.rc_context({'figure.figsize': (15, 10)}):
   plot.the.plot()
   # for example
