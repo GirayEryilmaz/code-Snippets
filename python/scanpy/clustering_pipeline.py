@@ -18,10 +18,10 @@ sc.pp.highly_variable_genes(adata, batch_key='batch')
 
 sc.tl.pca(adata, svd_solver='arpack')
 
-# Skip if you are not going to use harmony for batch correction
+# Harmony for batch correction
 sc.external.pp.harmony_integrate(adata, 'batch')
 
-sc.pp.neighbors(adata, n_pcs=25)
+sc.pp.neighbors(adata, n_pcs=25, use_rep='X_pca_harmony') # Remember to use harminozed PC
 
 sc.tl.umap(adata)
 
@@ -48,9 +48,9 @@ sc.pp.highly_variable_genes(subset, batch_key='batch')
 
 sc.tl.pca(subset, svd_solver='arpack')
 
-# Skip if you are not going to use harmony for batch correction
+# Using harmony for batch correction
 sc.external.pp.harmony_integrate(subset, 'batch')
 
-sc.pp.neighbors(subset, n_pcs=15)
+sc.pp.neighbors(subset, n_pcs=15, use_rep='X_pca_harmony')
 
 sc.tl.umap(subset)
