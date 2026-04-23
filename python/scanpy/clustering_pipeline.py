@@ -20,8 +20,10 @@ sc.tl.pca(adata, svd_solver='arpack')
 
 # Harmony for batch correction
 sc.external.pp.harmony_integrate(adata, 'batch', max_iter_harmony = 50) # It's important that harmony coverges
-
 sc.pp.neighbors(adata, n_pcs=25, use_rep='X_pca_harmony') # Remember to use harminozed PC
+
+# Alternatively, after PCA use bbknn
+# sc.external.pp.bbknn(adata, batch_key="batch", neighbors_within_batch = 3)
 
 sc.tl.umap(adata)
 
